@@ -1,8 +1,11 @@
 // lib/partidos.ts
 
 import { supabase } from "../utils/supabaseClient";
+import { PartidoConEquipos } from "@/app/types/models/partido";
 
-export async function getPartidosDelDia(fecha: Date) {
+export async function getPartidosDelDia(
+  fecha: Date,
+): Promise<PartidoConEquipos[]> {
   const inicio = new Date(
     Date.UTC(fecha.getFullYear(), fecha.getMonth(), fecha.getDate(), 0, 0, 0),
   );
@@ -31,6 +34,5 @@ export async function getPartidosDelDia(fecha: Date) {
     .order("fecha");
 
   if (error) throw error;
-
-  return data;
+  return (data as unknown as PartidoConEquipos[]) ?? [];
 }

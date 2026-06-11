@@ -1,4 +1,12 @@
-const Partido = ({ partido, index }: { partido: any; index: number }) => {
+import { PartidoConEquipos } from "@/app/types/models/partido";
+
+const Partido = ({
+  partido,
+  index,
+}: {
+  partido: PartidoConEquipos;
+  index: number;
+}) => {
   return (
     <div
       key={index}
@@ -8,17 +16,23 @@ const Partido = ({ partido, index }: { partido: any; index: number }) => {
         <span className="text-xs font-bold text-vnl-text-muted uppercase tracking-widest mb-1">
           Fase de Grupos
         </span>
-        <span className="text-xs font-medium text-vnl-accent">Finalizado</span>
+        {partido.ganador_id ? (
+          <span className="text-xs font-medium text-vnl-accent">
+            Finalizado
+          </span>
+        ) : (
+          ""
+        )}
       </div>
 
       <div className="flex items-center justify-center gap-4 sm:gap-6 w-full">
         <div className="flex items-center gap-3 flex-1 justify-end">
           <span className="text-sm sm:text-base font-semibold text-vnl-text-main">
-            {partido.equipo1.nombre}
+            {partido.equipo1?.nombre}
           </span>
           <img
-            src={partido.equipo1.imagen_url}
-            alt={partido.equipo1.nombre}
+            src={partido.equipo1?.imagen_url ?? undefined}
+            alt={partido.equipo1?.nombre}
             className="w-15 h-10 object-cover border border-slate-100 shrink-0 shadow-lg"
           />
         </div>
@@ -31,12 +45,12 @@ const Partido = ({ partido, index }: { partido: any; index: number }) => {
 
         <div className="flex items-center gap-3 flex-1 justify-start">
           <img
-            src={partido.equipo2.imagen_url}
-            alt={partido.equipo2.nombre}
+            src={partido.equipo2?.imagen_url ?? undefined}
+            alt={partido.equipo2?.nombre}
             className="w-15 h-10 object-cover border border-slate-100 shrink-0 shadow-lg"
           />
           <span className="text-sm sm:text-base font-semibold text-vnl-text-main">
-            {partido.equipo2.nombre}
+            {partido.equipo2?.nombre}
           </span>
         </div>
       </div>
