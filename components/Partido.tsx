@@ -1,12 +1,21 @@
 import { PartidoConEquipos } from "@/app/types/models/partido";
+import Sets from "./Sets";
 
 const Partido = ({
   partido,
   index,
+  esPrediccion,
 }: {
   partido: PartidoConEquipos;
   index: number;
+  esPrediccion: boolean;
 }) => {
+  const fechaObjeto = new Date(partido.fecha);
+  const horaFormateada = fechaObjeto.toLocaleTimeString("es-AR", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "UTC",
+  });
   return (
     <div
       key={index}
@@ -21,7 +30,9 @@ const Partido = ({
             Finalizado
           </span>
         ) : (
-          ""
+          <div className="text-xs font-bold text-vnl-text-muted">
+            {horaFormateada}
+          </div>
         )}
       </div>
 
@@ -36,13 +47,7 @@ const Partido = ({
             className="w-15 h-10 object-cover border border-slate-100 shrink-0 shadow-lg"
           />
         </div>
-
-        <div className="text-2xl sm:text-3xl font-black text-vnl-text-main shrink-0 flex justify-between gap-4">
-          {partido.eq_1_sets}{" "}
-          <span className="text-slate-400 font-light mx-1">-</span>
-          {partido.eq_2_sets}
-        </div>
-
+        <Sets partido={partido} esPrediccion={esPrediccion} />
         <div className="flex items-center gap-3 flex-1 justify-start">
           <img
             src={partido.equipo2?.imagen_url ?? undefined}

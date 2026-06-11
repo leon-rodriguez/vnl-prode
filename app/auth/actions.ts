@@ -29,7 +29,7 @@ export async function loginConGoogle() {
     provider: "google",
     options: {
       // Esta es la URL de tu app local a donde Google va a redirigir al usuario
-      redirectTo: "http://localhost:3000/auth/callback",
+      redirectTo: "/auth/callback",
     },
   });
 

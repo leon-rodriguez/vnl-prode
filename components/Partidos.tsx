@@ -14,7 +14,12 @@ const Partidos = ({ fecha }: { fecha: Date | undefined }) => {
   return (
     <>
       {partidos.map((partido, index) => (
-        <Partido partido={partido} index={index} key={index} />
+        <Partido
+          partido={partido}
+          index={index}
+          key={index}
+          esPrediccion={true}
+        />
       ))}
     </>
   );
