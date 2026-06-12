@@ -1,13 +1,14 @@
 import { PartidoConEquipos } from "@/app/types/models/partido";
-import Sets from "./Sets";
+import Sets from "../../components/Sets";
+import { useState } from "react";
+import SetsPrediccion from "./SetsPrediccion";
 
-const Partido = ({
+const PartidoPrediccion = ({
   partido,
   index,
 }: {
   partido: PartidoConEquipos;
   index: number;
-  esPrediccion: boolean;
 }) => {
   const fechaObjeto = new Date(partido.fecha);
   const horaFormateada = fechaObjeto.toLocaleTimeString("es-AR", {
@@ -15,6 +16,9 @@ const Partido = ({
     minute: "2-digit",
     timeZone: "UTC",
   });
+
+  const [isPredictionLegal, setIsPredictionLegal] = useState<boolean>(false);
+
   return (
     <div
       key={index}
@@ -46,7 +50,10 @@ const Partido = ({
             className="w-15 h-10 object-cover border border-slate-100 shrink-0 shadow-lg"
           />
         </div>
-        <Sets partido={partido} esPrediccion={false} />
+        <SetsPrediccion
+          partido={partido}
+          onValidChange={setIsPredictionLegal}
+        />
         <div className="flex items-center gap-3 flex-1 justify-start">
           <img
             src={partido.equipo2?.imagen_url ?? undefined}
@@ -58,8 +65,16 @@ const Partido = ({
           </span>
         </div>
       </div>
+      <div className="w-full flex justify-center pt-5">
+        <button
+          disabled={!isPredictionLegal}
+          className="w-30 h-7 bg-vnl-primary text-white rounded-lg flex justify-center items-center cursor-pointer hover:bg-vnl-primary-hover transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:pointer-events-none"
+        >
+          Confirmar
+        </button>
+      </div>
     </div>
   );
 };
 
-export default Partido;
+export default PartidoPrediccion;
