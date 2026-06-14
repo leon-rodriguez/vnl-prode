@@ -1,5 +1,5 @@
 "use client";
-import { getPartidosDelDia } from "@/lib/partidos";
+import { getPartidosDelDia, getPartidosConPrediccion } from "@/lib/partidos";
 import { useEffect, useState } from "react";
 import { PartidoConEquipos } from "@/app/types/models/partido";
 import Partido from "./Partido";
@@ -10,6 +10,7 @@ const Partidos = ({ fecha }: { fecha: Date | undefined }) => {
   const pathname = usePathname();
   const esPrediccion = pathname === "/predicciones";
   const [partidos, setPartidos] = useState<PartidoConEquipos[]>([]);
+
   useEffect(() => {
     if (!fecha) return;
     getPartidosDelDia(fecha).then(setPartidos);
@@ -17,18 +18,14 @@ const Partidos = ({ fecha }: { fecha: Date | undefined }) => {
 
   return (
     <>
-      {partidos.map((partido, index) =>
-        esPrediccion ? (
-          <PartidoPrediccion key={index} index={index} partido={partido} />
-        ) : (
-          <Partido
-            partido={partido}
-            index={index}
-            key={index}
-            esPrediccion={esPrediccion}
-          />
-        ),
-      )}
+      {partidos.map((partido, index) => (
+        <Partido
+          partido={partido}
+          index={index}
+          key={index}
+          esPrediccion={esPrediccion}
+        />
+      ))}
     </>
   );
 };
