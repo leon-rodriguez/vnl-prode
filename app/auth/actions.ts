@@ -25,6 +25,7 @@ export async function loginConGoogle() {
   const supabase = await getSupabaseServer();
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  console.log("URL BASE DETECTADA:", baseUrl);
   // Le pedimos a Supabase la URL de autenticación de Google
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
