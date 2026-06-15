@@ -9,12 +9,12 @@ export default async function LoginPage({ searchParams }: LoginProps) {
   const { error } = await searchParams;
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4 py-12 bg-vnl-bg">
+    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center py-12 bg-vnl-bg">
       <div className="max-w-md w-full space-y-8 bg-vnl-card p-8 rounded-2xl border border-slate-200 shadow-xl">
         <div className="text-center">
           <span className="text-4xl">🏐</span>
           <h2 className="mt-4 text-3xl font-black text-vnl-text-main">
-            Ingresá a <span className="text-vnl-primary">VNL Profe</span>
+            Ingresá a <span className="text-vnl-primary">VNL Prode</span>
           </h2>
           <p className="mt-2 text-sm text-vnl-text-muted">
             Pronosticá los partidos de la Volleyball Nations League
