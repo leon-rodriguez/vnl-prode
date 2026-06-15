@@ -10,10 +10,13 @@ const SetsPrediccion = ({
 }) => {
   const [eq1, setEq1] = useState<string>("");
   const [eq2, setEq2] = useState<string>("");
-
+  const yaComenzo = new Date() > new Date(partido.fecha);
   useEffect(() => {
     // Si ya existe una predicción guardada en la BD, nos aseguramos de apagar el botón del padre
-    if (partido.prediccion !== null && partido.prediccion !== undefined) {
+    if (
+      (partido.prediccion !== null && partido.prediccion !== undefined) ||
+      yaComenzo
+    ) {
       onValidChange(false, 0, 0);
       return;
     }
@@ -37,7 +40,7 @@ const SetsPrediccion = ({
       // SI DEJA DE SER VÁLIDO, LE AVISAMOS AL PADRE PARA DESHABILITAR EL BOTÓN
       onValidChange(false, 0, 0);
     }
-  }, [eq1, eq2, partido.prediccion, onValidChange]);
+  }, [eq1, eq2, partido.prediccion, yaComenzo, onValidChange]);
 
   const handleInputChange = (valStr: string, setVal: (v: string) => void) => {
     if (valStr === "") {
@@ -65,6 +68,7 @@ const SetsPrediccion = ({
               type="number"
               min={0}
               max={3}
+              disabled={yaComenzo}
               value={eq1} // Componente controlado
               onKeyDown={(e) => {
                 if (["e", "E", "+", "-", "."].includes(e.key))
@@ -80,6 +84,7 @@ const SetsPrediccion = ({
               type="number"
               min={0}
               max={3}
+              disabled={yaComenzo}
               value={eq2} // Componente controlado
               onKeyDown={(e) => {
                 if (["e", "E", "+", "-", "."].includes(e.key))

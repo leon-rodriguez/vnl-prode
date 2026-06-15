@@ -24,12 +24,13 @@ export async function login(formData: FormData) {
 export async function loginConGoogle() {
   const supabase = await getSupabaseServer();
 
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   // Le pedimos a Supabase la URL de autenticación de Google
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
       // Esta es la URL de tu app local a donde Google va a redirigir al usuario
-      redirectTo: "/auth/callback",
+      redirectTo: `${baseUrl}/auth/callback`,
     },
   });
 

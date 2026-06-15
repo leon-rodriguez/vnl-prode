@@ -22,6 +22,7 @@ const PartidoPrediccion = ({
   onRefresh: () => void;
 }) => {
   const fechaObjeto = new Date(partido.fecha);
+  const yaComenzo = new Date() > new Date(fechaObjeto);
   const horaFormateada = fechaObjeto.toLocaleTimeString("es-AR", {
     hour: "2-digit",
     minute: "2-digit",
@@ -126,7 +127,13 @@ const PartidoPrediccion = ({
         </div>
       </div>
       <div className="w-full flex justify-center pt-5">
-        {partido.prediccion === null || partido.prediccion === undefined ? (
+        {partido.prediccion !== null && partido.prediccion !== undefined ? (
+          <span className="text-sm text-slate-400 font-medium">Registrado</span>
+        ) : yaComenzo ? (
+          <span className="text-sm text-red-400 font-bold uppercase tracking-wider">
+            Tiempo agotado
+          </span>
+        ) : (
           <button
             disabled={!isPredictionLegal.legal || cargando}
             onClick={handleSavePrediction}
@@ -134,8 +141,6 @@ const PartidoPrediccion = ({
           >
             {cargando ? "Guardando..." : "Confirmar"}
           </button>
-        ) : (
-          <span className="text-sm text-slate-400 font-medium">Registrado</span>
         )}
       </div>
     </div>
